@@ -155,8 +155,9 @@ function calculateRoomCost(){
 
 // function to calculate loyalty points
 function calculateLoyaltyPoints() {
+    localStorage.removeItem(loyaltyPointsKey);
     const totalRoomsBooked = parseInt(singleRooms.value) + parseInt(doubleRooms.value) + parseInt(tripleRooms.value);
-    if (totalRoomsBooked > 3) {
+    if (totalRoomsBooked >= 3) {
         loyaltyPoints += 20 * totalRoomsBooked;
     }
 }
@@ -172,7 +173,7 @@ btnLoyalty.addEventListener("click", function () {
         alert("You do not have loyalty points");
     } else {
     
-        alert(`You Have: ${storedLoyaltyPoints} Points`);
+        alert(`You Have: ${storedLoyaltyPoints} Loyalty Points`);
     }
 
     
@@ -344,8 +345,49 @@ function updateOverallRoomBooking(event) {
         return;
     }
 
+    if (!checkInDate.value || !checkOutDate.value) {
+        alert("Please select both check-in and check-out dates.");
+        return;
+    }
+
+
     calculateLoyaltyPoints();
-    updateRoomBookingTable();
+
+
+    const existingRow = tableBody.getElementsByTagName('tr')[0];
+
+    if (existingRow) {
+        
+        // Update the content of the existing row
+        const cells = existingRow.getElementsByTagName('td');
+        cells[0].textContent = txtFirstName.value + " " + txtLastName.value;
+        cells[1].textContent = singleRooms.value;
+        cells[2].textContent = doubleRooms.value;
+        cells[3].textContent = tripleRooms.value;
+        cells[4].textContent = checkInDate.value;
+        cells[5].textContent = checkOutDate.value;
+        cells[6].textContent = kidsabovefive.value;
+        cells[7].textContent = numBeds.value;
+        cells[8].textContent = roomCost.toLocaleString() + " LKR";
+    } else {
+        if(txtPromoCode.value === "promo123"){
+            const discountAmount = roomCost * 0.05;
+            roomCost = roomCost - discountAmount;
+        }
+        // Insert a new row in the table
+        const newRow = tableBody.insertRow();
+        const cells = Array.from({ length: 9 }, () => newRow.insertCell());
+        cells[0].textContent = txtFirstName.value + " " + txtLastName.value;
+        cells[1].textContent = singleRooms.value;
+        cells[2].textContent = doubleRooms.value;
+        cells[3].textContent = tripleRooms.value;
+        cells[4].textContent = checkInDate.value;
+        cells[5].textContent = checkOutDate.value;
+        cells[6].textContent = kidsabovefive.value;
+        cells[7].textContent = numBeds.value;
+        cells[8].textContent = roomCost.toLocaleString() + " LKR";
+    }
+    
     localStorage.setItem(loyaltyPointsKey, loyaltyPoints);
 
     theBookRoomForm.reset();
@@ -367,39 +409,6 @@ function showErrorMessage() {
     alert('Please fill in personal details before booking.');
     thePersonalForm.scrollIntoView({ behavior: "smooth" });
 }
-
-
-
-
-
-
-
-// function to update Overall Room Booking Table
-function updateRoomBookingTable(){
-    calculateRoomCost();
-    
-    if(txtPromoCode.value === "promo123"){
-        const discountAmount = roomCost * 0.05;
-        roomCost = roomCost - discountAmount;
-    }
-    const newRow = tableBody.insertRow();
-    const cells = Array.from({ length: 9 }, () => newRow.insertCell());
-    cells[0].textContent = txtFirstName.value + " " + txtLastName.value;
-    cells[1].textContent = singleRooms.value;
-    cells[2].textContent = doubleRooms.value;
-    cells[3].textContent = tripleRooms.value;
-    cells[4].textContent = checkInDate.value;
-    cells[5].textContent = checkOutDate.value;
-    cells[6].textContent = kidsabovefive.value;
-    cells[7].textContent = numBeds.value;
-    cells[8].textContent = roomCost.toLocaleString() + " LKR";;
-}
-
-
-
-
-
-
 
 
 // adding the event listener to the favourite button
@@ -653,25 +662,6 @@ btnLoadAdvFav.addEventListener("click",function(event){
 });
 
 
-
-// updates overall adventure booking table
-function updateOverallAdventureBooking(){
-
-    const newRow = txtOverallAdventureTable.insertRow();
-    const cells = Array.from({length:8}, () => newRow.insertCell());
-
-    cells[0].textContent = Local.value;
-    cells[1].textContent = localKids.value;
-    cells[2].textContent = foreignAdults.value;
-    cells[3].textContent = foreignKids.value;
-    cells[4].textContent = hours.value;
-    cells[5].textContent = adultGuide.checked ? "Yes":"No";
-    cells[6].textContent = kidsGuide.checked ? "Yes":"No";
-    cells[7].textContent = advCost.toLocaleString() +"LKR";
-}
-
-
-
 function validateAdventure(){
     if(parseInt(hours.value)==0){
         alert("You need to book at least for 1 hour");
@@ -680,6 +670,14 @@ function validateAdventure(){
     return true;
 }
 
+
+function participantCheck(){
+    if(parseInt(Local.value) === 0 && parseInt(foreignAdults.value)===0 && parseInt(localKids.value)===0 && parseInt(foreignKids.value)===0){
+        alert("You need at least one participant to book an Adventure");
+        return false;
+    }
+    return true;
+}
 // adding event handler to book adventure button
 btnbookAdventure.addEventListener("click", updateAdventures);
 
@@ -690,6 +688,8 @@ function clearOverallRoomBookingTable() {
         tableBody.deleteRow(0);
     }
 }
+
+
 
 // displaying popup messeage with adventure details and reset the current bookings
 function updateAdventures(event){
@@ -709,6 +709,9 @@ function updateAdventures(event){
    
 
     if (!validateAdventure()) {
+        return;
+    }
+    if(!participantCheck()){
         return;
     }
 
