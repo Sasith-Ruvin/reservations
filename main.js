@@ -200,12 +200,8 @@ function getSelectedExtraRequirements(){
 function updateCurrentBooking(){
     calculateRoomCost();
     
-    if(txtPromoCode.value === "promo123"){
-        const discountAmount = roomCost * 0.05;
-        roomCost = roomCost - discountAmount;
-    }
     txtCurrentRoomBooking.innerHTML = `
-    <h1>Current Booking</h1>
+    <h2>Current Booking</h2>
     <div class="booking-details">
         <p><strong>Name:</strong></p>
         <p>${txtFirstName.value} ${txtLastName.value}</p>
@@ -380,6 +376,12 @@ function showErrorMessage() {
 
 // function to update Overall Room Booking Table
 function updateRoomBookingTable(){
+    calculateRoomCost();
+    
+    if(txtPromoCode.value === "promo123"){
+        const discountAmount = roomCost * 0.05;
+        roomCost = roomCost - discountAmount;
+    }
     const newRow = tableBody.insertRow();
     const cells = Array.from({ length: 9 }, () => newRow.insertCell());
     cells[0].textContent = txtFirstName.value + " " + txtLastName.value;
@@ -559,7 +561,9 @@ function updateCurrentAdventureBooking(){
     
 
     txtcurrentAdventureBooking.innerHTML = `
-        <h1>Current Booking</h1>
+        <div class="booking-details">
+            <h2>Current Booking</h2>
+        </div>
         <div class="booking-details">
             <p><strong>Adventures:</strong></p>
             <p>${getSelectedAdventures()}</p>
