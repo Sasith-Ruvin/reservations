@@ -765,10 +765,11 @@ table {
     }
     #adventure-booking{
         flex-direction: column;
+        width: 100%;
 
     }
     .adventure-booking-form-container{
-        width: 80%;
+        width: 100%;
     }
     .current-adventure-bookings{
         width: 80%;
