@@ -334,7 +334,7 @@ header.scrolled ul{
     flex-wrap: wrap;
     width: 100%;
 }
-#adventure-form h1{
+#adventure-form h2{
     text-align: center;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -395,7 +395,7 @@ header.scrolled ul{
 }
 
 
-#current h1{
+#current h2{
     text-align: center;
     font-size: var(--size);
 }
@@ -414,7 +414,7 @@ header.scrolled ul{
 
 }
 
-#adv-bookingdetail h1{
+#adv-bookingdetail h2{
     font-family: var(--family);
     text-align: center;
     color: var(--font-colors);
@@ -441,7 +441,7 @@ header.scrolled ul{
     flex-wrap: wrap;
     width: 100%;
 }
-#room-bookingform h1{
+#room-bookingform h2{
     text-align: center;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -479,7 +479,7 @@ header.scrolled ul{
    padding: 1%;
 }
 
-.favourite-load-button #favourite,#favouriteicon,#advfavourite,#favouriteicon{
+.favourite-load-button #favourite,#favouriteicon,#advfavourite,#advfavouriteicon{
     border-radius: 20px;
 }
 
@@ -902,7 +902,7 @@ table {
     color: white;
     font-size: clamp(10px,1.5vw,100px);
 }
-.footer-left-text h1{
+.footer-left-text h2{
     font-family: "Philosopher",sans-serif;
     color: rgba(255, 255, 255, 0.904);
 }

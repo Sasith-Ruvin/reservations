@@ -76,8 +76,8 @@ const adventures = document.getElementsByName("adventures");
 const txtcurrentAdventureBooking = document.getElementById("adv-bookingdetail");
 const theAdvenForm = document.getElementById("adventure-form");
 const adventureInput = document.querySelectorAll("#adventure-form input");
-const adultGuide = document.getElementById("Adult Guide");
-const kidsGuide = document.getElementById("Kid's Guide");
+const adultGuide = document.getElementById("Adult-Guide");
+const kidsGuide = document.getElementById("Kid's-Guide");
 
 
 // overall booking table
@@ -517,13 +517,13 @@ kidsGuide.addEventListener('change', function () {
 
 // function to calculate guide costs and add it to adventure cost
 function guideCheck(checkbox) {
-    if (checkbox.id === "Adult Guide") {
+    if (checkbox.id === "Adult-Guide") {
         if (checkbox.checked) {
             guideCost = guideCost + adultGuideCost;
         } else {
             guideCost = guideCost - adultGuideCost;
         }
-    } else if (checkbox.id === "Kid's Guide") {
+    } else if (checkbox.id === "Kid's-Guide") {
         if (checkbox.checked) {
             guideCost = guideCost + kidsGuideCost;
         } else {
