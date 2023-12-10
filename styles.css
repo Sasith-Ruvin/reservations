@@ -34,10 +34,11 @@ body{
 }
 header.scrolled{
     background-color: rgb(0, 0, 0);
-    opacity: 0.98em;
+    opacity: 5%;
 }
 .header ul{
-    margin: 20 0 0 0;
+    margin-top: 20;
+    margin-bottom: 20;
     padding: 0;
     list-style: none;
     overflow: auto;
@@ -567,7 +568,7 @@ label{
     border-radius: 6px;
     text-align: center;
     color:var(--font-colors);
-    font-weight: 10%;
+    font-weight: bold;
     font-size: var(--size);
     font-family: var(--family);
 }
