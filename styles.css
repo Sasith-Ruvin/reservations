@@ -37,7 +37,7 @@ header.scrolled{
     opacity: 5%;
 }
 .header ul{
-    margin: 20px 0px 0px 0px;
+    margin-top: 20px;
     padding: 0;
     list-style: none;
     overflow: auto;
