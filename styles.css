@@ -965,7 +965,7 @@ table {
     color: white;
     font-size: clamp(10px,1.5vw,100px);
 }
-.footer-contacts #email{
+.footer-contacts #hotelemail{
     text-decoration: none;
     color: white;
 }
