@@ -172,7 +172,7 @@ btnLoyalty.addEventListener("click", function () {
         alert("You do not have loyalty points");
     } else {
     
-        alert(`Your Loyalty Points: ${storedLoyaltyPoints}`);
+        alert(`You Have: ${storedLoyaltyPoints} Points`);
     }
 
     

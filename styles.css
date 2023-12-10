@@ -7,6 +7,7 @@
     --second-font-color:black;
     --second-font-size:clamp(20px,1vw,100px);
     --third-font-size:clamp(20px,0.8vw,100px);
+    --button-font:clamp(20px,1.5vw,100px);
 
 }
 
@@ -344,7 +345,7 @@ header.scrolled ul{
 
 #adventure-selection{
     width: 100%;
-    font-size: clamp(10px,1vw,100px);
+    font-size: var(--second-font-size);
     color: white;
     font-family: var(--family);
 }
@@ -608,7 +609,7 @@ label{
 #bookrooms{
     padding: 2%;
     border-radius: 15px;
-    font-size: clamp(15px,1.5vw,100px);
+    font-size: var(--button-font);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bolder;
 }
@@ -616,7 +617,7 @@ label{
 #bookadventure{
     padding: 2%;
     border-radius: 15px;
-    font-size: clamp(20px,1.5vw,100px);
+    font-size: var(--button-font);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bolder;
 }
@@ -779,6 +780,9 @@ table {
     }
     #adventureselection{
         margin-top: 5%;
+    }
+    #bookrooms,#bookadventure{
+        width: 80%;
     }
     .favourite-loyalty-button{
         flex-direction: column;
