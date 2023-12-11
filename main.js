@@ -5,9 +5,9 @@ const tripleRoomPrice = 40000;
 const bedCost = 8000;
 const kidMeals = 5000;
 const localAdultCharge = 5000;
-const localKidCharge = 1000;
+const localKidCharge = 2000;
 const foreignAdultCharge = 10000;
-const foreignKidCharge = 2000;
+const foreignKidCharge = 5000;
 const adultGuideCost = 1000;
 const kidsGuideCost = 500;
 const loyaltyPointsKey = "loyaltyPoints";
@@ -121,6 +121,8 @@ checkInDate.addEventListener("input", function () {
     }
 });
 
+
+
 // Add event listener to check-out date for changes
 checkOutDate.addEventListener("input", function () {
     // If check-out date is before check-in date, reset it to check-in date
@@ -146,12 +148,14 @@ function calculateRoomCost(){
     let totalkidMealCost = kidMeals * parseInt(kidsabovefive.value);
     days = Math.max(1,Math.round(Math.abs((new Date(checkOutDate.value) - new Date(checkInDate.value)) /(24 * 60 * 60 * 1000))));
 
-    roomCost = (((numSingleRooms * singleRoomPrice) + (numDoubleRooms * doubleRoomPrice) + (numTripleRooms * tripleRoomPrice)) * days) + totalBedCost + totalkidMealCost;
+    roomCost = (((numSingleRooms * singleRoomPrice) + (numDoubleRooms * doubleRoomPrice) + (numTripleRooms * tripleRoomPrice)+ totalkidMealCost) * days)+ totalBedCost  ;
 
     if(isNaN(roomCost)){
         roomCost = 0;
     }
 }
+
+
 
 // function to calculate loyalty points
 function calculateLoyaltyPoints() {
@@ -161,6 +165,8 @@ function calculateLoyaltyPoints() {
         loyaltyPoints += 20 * totalRoomsBooked;
     }
 }
+
+
 
 // adding event handler to loyalty button
 btnLoyalty.addEventListener("click", function () {
@@ -180,6 +186,8 @@ btnLoyalty.addEventListener("click", function () {
 });
 
 
+
+
 // adding an event handler to each checkbox in extra requirements
 extraRequests.forEach(checkbox => checkbox.addEventListener('change', updateCurrentBooking));
 
@@ -196,6 +204,8 @@ function getSelectedExtraRequirements(){
     }})
     return selectedExtras.join(', ');
 }
+
+
 
 // function to update current booking details with user inputs dynamically
 function updateCurrentBooking(){
@@ -250,6 +260,8 @@ function updateCurrentBooking(){
 `;
 }
 
+
+
 // function to reset current room bookings
 function resetCurrentRoomBookings() {
     txtFirstName.value = "";
@@ -271,7 +283,7 @@ function resetCurrentRoomBookings() {
 
 
 
-// Check if personal details are filled
+// function to Check if personal details are filled
 function checkPersonalDetails() {
     let isFilled = true;
 
@@ -285,6 +297,8 @@ function checkPersonalDetails() {
     return isFilled;
 }
 
+
+// validating contact number input
 contactInput.addEventListener('input', function () {
     if (bookNowClicked) {
         let cleanedInput = this.value.replace(/-/g, '');
@@ -299,6 +313,23 @@ contactInput.addEventListener('input', function () {
         this.value = cleanedInput;
     }
 });
+
+
+// function to validate personal details form
+function validatePersonalDetailsForm() {
+    const firstName = document.getElementById('firstname').value;
+    const lastName = document.getElementById('lastname').value;
+    const contact = document.getElementById('contact').value;
+    const email = document.getElementById('email').value;
+    return firstName.trim() !== '' && lastName.trim() !== '' && contact.trim() !== '' && email.trim() !== '';
+}
+
+
+// displaying error message if personal detail form is not filled
+function showErrorMessage() {
+    alert('Please fill in personal details before booking.');
+    thePersonalForm.scrollIntoView({ behavior: "smooth" });
+}
 
 
 // Adding Functionality to Book Now Button
@@ -353,9 +384,11 @@ function updateOverallRoomBooking(event) {
 
     calculateLoyaltyPoints();
 
-
+    // updating overall booking table with current room booking details
     const existingRow = tableBody.getElementsByTagName('tr')[0];
 
+
+    //if overall booking table already consist an order replacing it with new one
     if (existingRow) {
         
         // Update the content of the existing row
@@ -370,10 +403,14 @@ function updateOverallRoomBooking(event) {
         cells[7].textContent = numBeds.value;
         cells[8].textContent = roomCost.toLocaleString() + " LKR";
     } else {
+
+        // calculating discount amount
         if(txtPromoCode.value === "promo123"){
             const discountAmount = roomCost * 0.05;
             roomCost = roomCost - discountAmount;
         }
+
+        
         // Insert a new row in the table
         const newRow = tableBody.insertRow();
         const cells = Array.from({ length: 9 }, () => newRow.insertCell());
@@ -388,6 +425,8 @@ function updateOverallRoomBooking(event) {
         cells[8].textContent = roomCost.toLocaleString() + " LKR";
     }
     
+
+    // storing loyalty points is local storage
     localStorage.setItem(loyaltyPointsKey, loyaltyPoints);
 
     theBookRoomForm.reset();
@@ -397,18 +436,7 @@ function updateOverallRoomBooking(event) {
     bookNowClicked = false;
 }
 
-function validatePersonalDetailsForm() {
-    const firstName = document.getElementById('firstname').value;
-    const lastName = document.getElementById('lastname').value;
-    const contact = document.getElementById('contact').value;
-    const email = document.getElementById('email').value;
-    return firstName.trim() !== '' && lastName.trim() !== '' && contact.trim() !== '' && email.trim() !== '';
-}
 
-function showErrorMessage() {
-    alert('Please fill in personal details before booking.');
-    thePersonalForm.scrollIntoView({ behavior: "smooth" });
-}
 
 
 // adding the event listener to the favourite button
@@ -449,7 +477,7 @@ function saveToFavorites(event){
 }
 
 
-
+// 
 btnLoadFav.addEventListener("click", loadSavedOrder);
 
 function loadSavedOrder(event){
@@ -614,6 +642,8 @@ function updateCurrentAdventureBooking(){
 }
 
 
+// function to save current adventure booking as favourite adventure in local storage
+
 btnAdvFavourite.addEventListener('click', saveAdventureFavourites);
 
 function saveAdventureFavourites(event){
@@ -637,6 +667,8 @@ function saveAdventureFavourites(event){
     alert("Current Adventure Booking Saved to Favourite Adventures!");
 }
 
+
+// function tov load saved favourite adventure booking and update current adventure and form
 btnLoadAdvFav.addEventListener("click",function(event){
     event.preventDefault();
     const adventureFavouriteJSON = localStorage.getItem("adventureFavourite");
@@ -678,10 +710,9 @@ function participantCheck(){
     }
     return true;
 }
-// adding event handler to book adventure button
-btnbookAdventure.addEventListener("click", updateAdventures);
 
 
+// resetting overall room booking table
 function clearOverallRoomBookingTable() {
     const rows = tableBody.getElementsByTagName('tr');
     while (rows.length > 0) {
@@ -689,6 +720,8 @@ function clearOverallRoomBookingTable() {
     }
 }
 
+// adding event handler to book adventure button
+btnbookAdventure.addEventListener("click", updateAdventures);
 
 
 // displaying popup messeage with adventure details and reset the current bookings
