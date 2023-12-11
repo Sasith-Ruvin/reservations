@@ -332,6 +332,12 @@ function showErrorMessage() {
 }
 
 
+// function to check if user entered decimal values and validate the fields
+
+function isanInteger(value){
+    return /^\d+$/.test(value);
+}
+
 // Adding Functionality to Book Now Button
 btnbookRooms.addEventListener("click", updateOverallRoomBooking);
 
@@ -355,7 +361,7 @@ function updateOverallRoomBooking(event) {
         return;
     }
 
-    // Validate other booking conditions
+    // Validate room booking conditions
     if (
         parseInt(singleRooms.value) === 0 &&
         parseInt(doubleRooms.value) === 0 &&
@@ -364,6 +370,15 @@ function updateOverallRoomBooking(event) {
         alert("Please select at least one room before booking.");
         return;
     }
+
+
+    // if user entered decimal values into quantity fields
+
+    if(!isanInteger(singleRooms.value)|| !isanInteger(doubleRooms.value)|| !isanInteger(tripleRooms.value)||!isanInteger(numOfAdults.value)|| !isanInteger(kidsabovefive.value)|| !isanInteger(numBeds.value)){
+        alert("Please Enter Whole Numbers into quantity fields!!");
+        return;
+    }
+
 
     if (parseInt(numOfAdults.value) === 0) {
         alert("You need at least one Adult to Book Rooms");
@@ -439,7 +454,7 @@ function updateOverallRoomBooking(event) {
 
 
 
-// adding the event listener to the favourite button
+// adding the event listener to the favourite button in room booking form
 btnFavourite.addEventListener("click", saveToFavorites);
 
 // saves the current room booking details to local storage
@@ -750,6 +765,11 @@ function updateAdventures(event){
 
     if (parseInt(hours.value)>5){
         alert("You cannot book for more than 5 hours for adventures");
+        return;
+    }
+
+    if(!isanInteger(Local.value)||!isanInteger(localKids.value)||!isanInteger(foreignAdults.value)||!isanInteger(foreignKids.value)||!isanInteger(hours.value)){
+        alert("Please Enter Whole Numbers into quantity Fields!!");
         return;
     }
 
