@@ -341,13 +341,13 @@ function showErrorMessage() {
 }
 
 
-// function to check if user entered decimal values and validate the fields
+// function to check if user entered decimal values or negative values and validate the fields
 
 function isanInteger(value){
     return /^\d+$/.test(value) && parseInt(value,10)>= 0;
 }
 
-// function to check if user entered negative values and validate the fields accordingly
+
 
 // Adding Functionality to Book Now Button
 btnbookRooms.addEventListener("click", updateOverallRoomBooking);
@@ -356,6 +356,7 @@ function updateOverallRoomBooking(event) {
     event.preventDefault();
     bookNowClicked = true; 
     removeLoyaltyPoints();
+
     // Validate personal details form
     if (!validatePersonalDetailsForm()) {
         showErrorMessage();
@@ -368,7 +369,7 @@ function updateOverallRoomBooking(event) {
     const contactEntered = contactInput.value;
 
     if (!contactPattern.test(contactEntered)) {
-        alert("Enter a valid Contact Number");
+        alert("Please enter a contact number in this pattern ex: 000-000-0000");
         txtPersonalDetails.scrollIntoView({behavior:"smooth"});
         return;
     }
