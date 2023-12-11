@@ -335,8 +335,10 @@ function showErrorMessage() {
 // function to check if user entered decimal values and validate the fields
 
 function isanInteger(value){
-    return /^\d+$/.test(value);
+    return /^\d+$/.test(value) && parseInt(value,10)>= 0;
 }
+
+// function to check if user entered negative values and validate the fields accordingly
 
 // Adding Functionality to Book Now Button
 btnbookRooms.addEventListener("click", updateOverallRoomBooking);
@@ -375,7 +377,7 @@ function updateOverallRoomBooking(event) {
     // if user entered decimal values into quantity fields
 
     if(!isanInteger(singleRooms.value)|| !isanInteger(doubleRooms.value)|| !isanInteger(tripleRooms.value)||!isanInteger(numOfAdults.value)|| !isanInteger(kidsabovefive.value)|| !isanInteger(numBeds.value)){
-        alert("Please Enter Whole Numbers into quantity fields!!");
+        alert("Please Enter Non-Negative Whole Numbers into quantity fields!!");
         return;
     }
 
@@ -769,7 +771,7 @@ function updateAdventures(event){
     }
 
     if(!isanInteger(Local.value)||!isanInteger(localKids.value)||!isanInteger(foreignAdults.value)||!isanInteger(foreignKids.value)||!isanInteger(hours.value)){
-        alert("Please Enter Whole Numbers into quantity Fields!!");
+        alert("Please Enter Non-Negative Whole Numbers into quantity Fields!!");
         return;
     }
 
