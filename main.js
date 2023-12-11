@@ -156,15 +156,24 @@ function calculateRoomCost(){
 }
 
 
+//removing previous loyalty points from local storage before calculating new one 
+function removeLoyaltyPoints() {
+    localStorage.removeItem(loyaltyPointsKey);
+}
 
 // function to calculate loyalty points
 function calculateLoyaltyPoints() {
-    localStorage.removeItem(loyaltyPointsKey);
+    removeLoyaltyPoints(); // Remove existing loyalty points
+
     const totalRoomsBooked = parseInt(singleRooms.value) + parseInt(doubleRooms.value) + parseInt(tripleRooms.value);
+    
     if (totalRoomsBooked >= 3) {
-        loyaltyPoints += 20 * totalRoomsBooked;
+        loyaltyPoints = 20 * totalRoomsBooked;
+    } else {
+        loyaltyPoints = 0;
     }
 }
+
 
 
 
@@ -346,6 +355,7 @@ btnbookRooms.addEventListener("click", updateOverallRoomBooking);
 function updateOverallRoomBooking(event) {
     event.preventDefault();
     bookNowClicked = true; 
+    removeLoyaltyPoints();
     // Validate personal details form
     if (!validatePersonalDetailsForm()) {
         showErrorMessage();
@@ -400,7 +410,6 @@ function updateOverallRoomBooking(event) {
 
 
     calculateLoyaltyPoints();
-
     // updating overall booking table with current room booking details
     const existingRow = tableBody.getElementsByTagName('tr')[0];
 
