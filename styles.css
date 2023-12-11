@@ -7,6 +7,7 @@
     --second-font-color:black;
     --second-font-size:clamp(20px,1vw,100px);
     --third-font-size:clamp(20px,0.8vw,100px);
+    --fourth-font-size:clamp(25px,2.5vw,200px);
     --button-font:clamp(20px,1.5vw,100px);
 
 }
@@ -393,7 +394,11 @@ header.scrolled ul{
     justify-content: space-between;
     margin-bottom: 10px;
 }
-
+.booking-details h2{
+    font-size: var(--size);
+    font-family: var(--family);
+    color: var(--font-colors);
+}
 
 #current h2{
     text-align: center;
@@ -645,11 +650,16 @@ input,select{
     border-radius: 5px;
 }
 
-
-#overallbooking h1{
+#overallbooking{
+    padding-top:5%;
+}
+#overallbooking h2{
     color: var(--font-colors);
     font-family: var(--family);
-    font-size: var(--size);
+    font-size: var(--fourth-font-size);
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 3%;
 }
 
 table {
@@ -659,6 +669,8 @@ table {
     padding: 0;
     width: 100%;
     table-layout: fixed;
+    font-family: var(--family);
+    font-size: var(--size);
   }
   
   
