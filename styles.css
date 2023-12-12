@@ -421,9 +421,9 @@ header.scrolled ul{
 
 #adv-bookingdetail h2{
     font-family: var(--family);
-    text-align: center;
     color: var(--font-colors);
-    font-size: var(--third-font-size);
+    text-align: center;
+    font-size: var(--size);
 }
 #adv-bookingdetail p{
     font-size: var(--size);
